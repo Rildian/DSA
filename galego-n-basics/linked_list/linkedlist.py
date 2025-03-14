@@ -1,6 +1,7 @@
 from node import Node
 
 
+
 class ExceptionListElementNotFound(Exception):
     def __init__(self, element, message=f"Element not found on this linked list"):
         self.element = element
@@ -26,6 +27,7 @@ class LinkedList:
         self._size += 1
     
     def insertOnThisIndex(self, index: int, element):
+        
         if index == 0 or self.head is None:
             self.head = Node(element)
         if index > self._size or index is None or index < 0:
@@ -93,6 +95,8 @@ class LinkedList:
 
         self._size -= 1
 
+        
+
     def removeElement(self, element: int):
         if self.head is None:
             return 
@@ -109,7 +113,11 @@ class LinkedList:
                 break
             aux = aux.next
             prev = prev.next           
-        
+
+            if aux.next == None and aux.data != element:
+                self._size += 1
+                raise ExceptionListElementNotFound(element)
+
         aux = prev
 
         self._size -= 1
@@ -119,10 +127,9 @@ class LinkedList:
         while aux:
             print(aux.data, end=" -> " if aux.next else " ->  ")
             aux = aux.next
-            
     
 
-
+# some examples bellow, you can try it by yourself
 
 lista = LinkedList()
 lista.insertOnTail(10)
@@ -131,21 +138,10 @@ lista.insertOnTail(30)
 lista.insertOnTail(40)
 lista.insertOnTail(50)
 
-print(lista.searchTheElement(10))
-print(lista.searchTheElement(20))
-print(lista.searchTheElement(30))
+lista.printList()
+print("\n")
+print(lista.length())
 
-print(lista.printList())
+#lista.removeElement(70)
 
-lista.insertOnThisIndex(2, 33)
-print(lista.searchTheElement(30))
-print(lista.searchTheElement(33))
-
-lista.removeIndex(2)
-print(lista.printList())
-
-lista.removeIndex(3)
-print(lista.printList())
-
-lista.removeElement(20)
-print(lista.printList())
+print(lista.length())
