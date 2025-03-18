@@ -57,6 +57,3 @@ print(queue.size())
 
 queue.delete()
 print(queue.size())
-
-queue.delete()
-print(queue.size())

@@ -1,6 +1,5 @@
 from node import Node
 
-
 class Stack:
     
     def __init__(self):
@@ -20,6 +19,7 @@ class Stack:
 
         self._size += 1
 
+
     def pop(self):
         aux = self.head.next
         self.head = aux
@@ -32,8 +32,9 @@ class Stack:
             print(aux.data)
             aux = aux.next
     
+
     def top(self):
-        return self.head.data
+        return self.head.data if self.head else None
     
 
     def is_empty(self) -> bool:
@@ -48,6 +49,7 @@ class Stack:
             aux = aux.next
         
         self.head = aux
+
 
     def copy(self) -> None:
         copycat = self.head
