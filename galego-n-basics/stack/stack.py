@@ -3,7 +3,7 @@ from node import Node
 class Stack:
     
     def __init__(self):
-        self.head = None
+        self.topo = None
         self._size = 0
 
 
@@ -13,54 +13,52 @@ class Stack:
 
     def put(self, node: object):
     
-        top = Node(node)
-        top.next = self.head
-        self.head = top
+        aux = Node(node)
+        aux.next = self.topo
+        self.topo = aux
 
         self._size += 1
 
 
     def pop(self):
-        aux = self.head.next
-        self.head = aux
+        aux = self.topo.next
+        self.topo = aux
         
 
     def printStack(self):
         
-        aux = self.head
+        aux = self.topo
         while (aux):
             print(aux.data)
             aux = aux.next
     
 
     def top(self):
-        return self.head.data if self.head else None
+        return self.topo.data if self.topo else None
     
 
-    def is_empty(self) -> bool:
-        if self.head is None:
-            return True
-        return False
+    def isEmpty(self) -> bool:
+        return True if self.topo is None else False
 
 
     def clear(self) -> None:
-        aux = self.head
+        aux = self.topo
         while (aux):
             aux = aux.next
         
-        self.head = aux
+        self.topo = aux
 
 
     def copy(self) -> None:
-        copycat = self.head
+        copycat = self.topo
 
 
     def contains(self, item) -> bool:
         
-        if self.head.data == item:
+        if self.topo.data == item:
             return True
         
-        aux = self.head
+        aux = self.topo
         
         while (aux.next):
             aux = aux.next
@@ -71,11 +69,8 @@ class Stack:
             return False
 
 stack = Stack()
-
-stack.put(20)
-#print(stack.size())
-stack.put(10)
-stack.printStack()
 stack.put(30)
-
+stack.put(20)
+stack.put(10)
 print(stack.contains(30))
+stack.printStack()

@@ -13,12 +13,13 @@ class Queue:
 
 
     def insertOnRear(self, node: object) -> None:
+        aux = Node(node)
         if self.first == None:
-          self.first = Node(node)
-          self.last = Node(node)
+           self.first = aux
+           self.last = aux
         else:
-            self.last = Node(node)
-            self.first.next = self.last
+            self.last.next = aux
+            self.last = aux
         
         self._size += 1
     
@@ -52,8 +53,4 @@ queue = Queue()
 queue.insertOnRear(10)
 queue.insertOnRear(20)
 print(queue.size())
-queue.delete()
-print(queue.size())
-
-queue.delete()
-print(queue.size())
+queue.printQueue()

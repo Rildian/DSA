@@ -45,22 +45,31 @@ class DoubleLinkedList:
 
         self._size += 1
     
+
     def insertOnMiddle(self, node: object, index: int):
+        if index < 0 or index > self._size:
+            raise IndexError("Invalid index")
+        
         aux = NodeDLL(node)
         
-        if index == (self._size-1):
+        if index == (self._size): #tail
+            self.tail.next = aux
+            aux.prev = self.tail
+            self.tail = aux
+        elif index == (self._size-1): # before tail
             aux.next = self.tail
             aux.prev = self.tail.prev
+            self.tail.prev.next = aux
             self.tail.prev = aux
-
-        curr = self.head
-        for i in range(index-1):
-            curr = curr.next
+        else:
+            curr = self.head
+            for i in range(index-1):
+                curr = curr.next
+            aux.next = curr.next
+            aux.prev = curr
+            aux.next.prev = aux
+            curr.next = aux
         
-        aux.next = curr.next # o aux "empurra, ele aponta pro indice atual"
-        curr.next = aux # o "indicee atual" se torna o aux
-        aux.prev = curr # o curr (que tá atras do indice desejado) se torna prev
-        aux.next.prev = aux
 
         self._size += 1
 
@@ -105,6 +114,9 @@ class DoubleLinkedList:
     
 
     def search(self, index):
+        if (index < 0 or index > self._size):
+            raise IndexError("Invalid index")
+        
         aux = self.head
         for i in range(index):
             aux = aux.next
@@ -132,7 +144,36 @@ class DoubleLinkedList:
         raise IndexError("This element doesn't exist")
 
     
+    def deleteThisIndex(self, index: int):
+        if (index < 0 or index > self._size):
+            raise IndexError("Invalid index")
 
+        aux = self.head
+        i = 0
+        while (aux):
+            if i == index:
+                aux.next.prev = aux.prev
+                aux.prev = aux.next
+                self._size -= 1
+
+                return
+            aux = aux.next
+        
+        raise IndexError("Theres no element in this index")
+
+
+    def isEmpty(self):
+        return True if self.head is None else False
+    
+
+    def extends(self, elements: list):
+        for i in range(len(elements)):
+            self.insertOnTail(i)
+    
+
+    def removeAll(self):
+        self.head = None
+        self.tail = None
 
 
     def printDoubleLinkedList(self):
@@ -143,31 +184,24 @@ class DoubleLinkedList:
         print("\n")
 
 
-
-
 dLL = DoubleLinkedList()
 
 dLL.insertOnHead(10)
 dLL.insertOnTail(20)
 dLL.insertOnTail(30)
-dLL.insertOnTail(40)
-dLL.insertOnHead(5)
-dLL.insertOnMiddle(69, 3)
-dLL.insertOnMiddle(80, 3)
 dLL.printDoubleLinkedList()
 
-print(dLL.getSize())
+dLL.insertOnMiddle(10, 1)
 
-dLL.insertOnMiddle(1, 6)
 dLL.printDoubleLinkedList()
 print(dLL.getSize())
-dLL.insertOnMiddle(75, 7)
-dLL.deleteTail()
-dLL.deleteMiddle(2)
+dLL.insertOnMiddle(33, 4)
 dLL.printDoubleLinkedList()
-print(dLL.search(2))
-print(dLL.searchElement(80))
-dLL.deleteThisElement(80)
+print(dLL.getSize())
+dLL.insertOnMiddle(66, 4)
+print(dLL.getSize())
 dLL.printDoubleLinkedList()
+
+
             
 
