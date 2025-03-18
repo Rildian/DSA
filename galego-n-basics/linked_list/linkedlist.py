@@ -96,7 +96,6 @@ class LinkedList:
         self._size -= 1
 
         
-
     def removeElement(self, element: int):
         if self.head is None:
             return 
@@ -138,10 +137,25 @@ lista.insertOnTail(30)
 lista.insertOnTail(40)
 lista.insertOnTail(50)
 
+print(lista.searchTheElement(10))
+print(lista.searchTheElement(20))
+print(lista.searchTheElement(30))
+
 lista.printList()
 print("\n")
-print(lista.length())
 
-#lista.removeElement(70)
+lista.insertOnThisIndex(2, 33)
+print(lista.searchTheElement(30))
+print(lista.searchTheElement(33))
 
-print(lista.length())
+lista.removeIndex(2)
+lista.printList()
+print("\n")
+
+lista.removeIndex(3)
+lista.printList()
+print("\n")
+
+lista.removeElement(20)
+lista.printList()
+print("\n")
